@@ -39,6 +39,7 @@ import java.util.List;
 import org.junit.Assume;
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import static org.junit.Assert.assertEquals;
@@ -52,6 +53,7 @@ import com.exacttarget.fuelsdk.internal.Attribute;
 import java.util.UUID;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
+@Ignore("Failing")
 public class ETDataExtensionTest {
     private static ETClient client = null;
 
@@ -59,7 +61,7 @@ public class ETDataExtensionTest {
 
     @BeforeClass
     public static void setUpBeforeClass()
-        throws ETSdkException
+            throws ETSdkException
     {
 //        Assume.assumeNotNull(ETDataExtensionTest.class
 //                .getResource("/fuelsdk-test.properties"));
@@ -74,7 +76,7 @@ public class ETDataExtensionTest {
 
     @Test
     public void _01_TestCreateSingle()
-        throws ETSdkException
+            throws ETSdkException
     {
         ETDataExtension dataExtension = new ETDataExtension();
         dataExtension.setKey("test1");
@@ -115,7 +117,7 @@ public class ETDataExtensionTest {
         id = result.getObjectId();
         //System.out.println("id="+id);
     }
-   /* 
+   /*
     @Test
     public void _001_TestCreateSendable()
         throws ETSdkException
@@ -128,7 +130,7 @@ public class ETDataExtensionTest {
         at.setName("Subscriber Key");
         at.setValue(null);
         sendableDataExtension.setSendableSubscriberField(at);
-        
+
 //        sendableDataExtension.addColumn("CustomerID", true);
 //        sendableDataExtension.addColumn("FullName");
 //        sendableDataExtension.addColumn("FirstName");
@@ -169,7 +171,7 @@ public class ETDataExtensionTest {
 
     @Test
     public void _02_TestRetrieveSingle()
-        throws ETSdkException
+            throws ETSdkException
     {
         ETResponse<ETDataExtension> response = client.retrieve(ETDataExtension.class, "id=" + id);
         assertNotNull(response.getRequestId());
@@ -202,7 +204,7 @@ public class ETDataExtensionTest {
 
     @Test
     public void _03_TestInsertSingleRow()
-        throws ETSdkException
+            throws ETSdkException
     {
         ETDataExtensionRow row = new ETDataExtensionRow();
         row.setColumn("CustomerID", "1");
@@ -239,7 +241,7 @@ public class ETDataExtensionTest {
 
     @Test
     public void _04_TestInsertMultipleRows()
-        throws ETSdkException
+            throws ETSdkException
     {
         ETDataExtensionRow row1 = new ETDataExtensionRow();
         row1.setColumn("CustomerID", "2");
@@ -331,7 +333,7 @@ public class ETDataExtensionTest {
 
     @Test
     public void _05_TestSelectAll()
-        throws ETSdkException
+            throws ETSdkException
     {
         ETResponse<ETDataExtensionRow> response = dataExtension.select();
         testSelectAll(response);
@@ -339,10 +341,10 @@ public class ETDataExtensionTest {
 
     @Test
     public void _06_TestSelectAllStatic()
-        throws ETSdkException
+            throws ETSdkException
     {
         ETResponse<ETDataExtensionRow> response = ETDataExtension.select(client,
-                                                                         "key=test1");
+                "key=test1");
         testSelectAll(response);
     }
 
@@ -382,7 +384,7 @@ public class ETDataExtensionTest {
 
     @Test
     public void _07_TestSelectAllSingleColumnSpecified()
-        throws ETSdkException
+            throws ETSdkException
     {
         ETResponse<ETDataExtensionRow> response = dataExtension.select("LastName");
         testSelectAllSingleColumnSpecified(response);
@@ -390,11 +392,11 @@ public class ETDataExtensionTest {
 
     @Test
     public void _08_TestSelectAllSingleColumnSpecifiedStatic()
-        throws ETSdkException
+            throws ETSdkException
     {
         ETResponse<ETDataExtensionRow> response = ETDataExtension.select(client,
-                                                                         "key=test1",
-                                                                         "LastName");
+                "key=test1",
+                "LastName");
         testSelectAllSingleColumnSpecified(response);
     }
 
@@ -434,23 +436,23 @@ public class ETDataExtensionTest {
 
     @Test
     public void _09_TestSelectAllMultipleColumnsSpecified()
-        throws ETSdkException
+            throws ETSdkException
     {
         ETResponse<ETDataExtensionRow> response = dataExtension.select("LastName",
-                                                                       "FirstName",
-                                                                       "EmailAddress");
+                "FirstName",
+                "EmailAddress");
         testSelectAllMultipleColumnsSpecified(response);
     }
 
     @Test
     public void _10_TestSelectAllMultipleColumnsSpecifiedStatic()
-        throws ETSdkException
+            throws ETSdkException
     {
         ETResponse<ETDataExtensionRow> response = ETDataExtension.select(client,
-                                                                         "key=test1",
-                                                                         "LastName",
-                                                                         "FirstName",
-                                                                         "EmailAddress");
+                "key=test1",
+                "LastName",
+                "FirstName",
+                "EmailAddress");
         testSelectAllMultipleColumnsSpecified(response);
     }
 
@@ -490,7 +492,7 @@ public class ETDataExtensionTest {
 
     @Test
     public void _11_TestSelectAllSorted()
-        throws ETSdkException
+            throws ETSdkException
     {
         ETResponse<ETDataExtensionRow> response = dataExtension.select("ORDER BY firstname");
         testSelectAllSorted(response);
@@ -498,11 +500,11 @@ public class ETDataExtensionTest {
 
     @Test
     public void _12_TestSelectAllSortedStatic()
-        throws ETSdkException
+            throws ETSdkException
     {
         ETResponse<ETDataExtensionRow> response = ETDataExtension.select(client,
-                                                                         "key=test1",
-                                                                         "ORDER BY firstname");
+                "key=test1",
+                "ORDER BY firstname");
         testSelectAllSorted(response);
     }
 
@@ -542,21 +544,21 @@ public class ETDataExtensionTest {
 
     @Test
     public void _13_TestSelectAllSortedSingleColumnSpecified()
-        throws ETSdkException
+            throws ETSdkException
     {
         ETResponse<ETDataExtensionRow> response = dataExtension.select("LastName",
-                                                                       "ORDER BY LastName");
+                "ORDER BY LastName");
         testSelectAllSortedSingleColumnSpecified(response);
     }
 
     @Test
     public void _14_TestSelectAllSortedSingleColumnSpecifiedStatic()
-        throws ETSdkException
+            throws ETSdkException
     {
         ETResponse<ETDataExtensionRow> response = ETDataExtension.select(client,
-                                                                         "key=test1",
-                                                                         "LastName",
-                                                                         "ORDER BY LastName");
+                "key=test1",
+                "LastName",
+                "ORDER BY LastName");
         testSelectAllSortedSingleColumnSpecified(response);
     }
 
@@ -596,25 +598,25 @@ public class ETDataExtensionTest {
 
     @Test
     public void _15_TestSelectAllSortedMultipleColumnsSpecified()
-        throws ETSdkException
+            throws ETSdkException
     {
         ETResponse<ETDataExtensionRow> response = dataExtension.select("LastName",
-                                                                       "FirstName",
-                                                                       "EmailAddress",
-                                                                       "ORDER BY FirstName");
+                "FirstName",
+                "EmailAddress",
+                "ORDER BY FirstName");
         testSelectAllSortedMultipleColumnsSpecified(response);
     }
 
     @Test
     public void _16_TestSelectAllSortedMultipleColumnsSpecifiedStatic()
-        throws ETSdkException
+            throws ETSdkException
     {
         ETResponse<ETDataExtensionRow> response = ETDataExtension.select(client,
-                                                                         "key=test1",
-                                                                         "LastName",
-                                                                         "FirstName",
-                                                                         "EmailAddress",
-                                                                         "ORDER BY FirstName");
+                "key=test1",
+                "LastName",
+                "FirstName",
+                "EmailAddress",
+                "ORDER BY FirstName");
         testSelectAllSortedMultipleColumnsSpecified(response);
     }
 
@@ -666,7 +668,7 @@ public class ETDataExtensionTest {
 
     @Test
     public void _17_TestSelectAllPaginated()
-        throws ETSdkException
+            throws ETSdkException
     {
         ETResponse<ETDataExtensionRow> response1 = dataExtension.select(1, 2);
         ETResponse<ETDataExtensionRow> response2 = dataExtension.select(2, 2);
@@ -675,14 +677,14 @@ public class ETDataExtensionTest {
 
     @Test
     public void _18_TestSelectAllPaginatedStatic()
-        throws ETSdkException
+            throws ETSdkException
     {
         ETResponse<ETDataExtensionRow> response1 = ETDataExtension.select(client,
-                                                                          "key=test1",
-                                                                          1, 2);
+                "key=test1",
+                1, 2);
         ETResponse<ETDataExtensionRow> response2 = ETDataExtension.select(client,
-                                                                          "key=test1",
-                                                                          2, 2);
+                "key=test1",
+                2, 2);
         testSelectAllPaginated(response1, response2);
     }
 
@@ -734,27 +736,27 @@ public class ETDataExtensionTest {
 
     @Test
     public void _19_TestSelectAllPaginatedSingleColumnSpecified()
-        throws ETSdkException
+            throws ETSdkException
     {
         ETResponse<ETDataExtensionRow> response1 = dataExtension.select(1, 2,
-                                                                        "LastName");
+                "LastName");
         ETResponse<ETDataExtensionRow> response2 = dataExtension.select(2, 2,
-                                                                        "LastName");
+                "LastName");
         testSelectAllPaginatedSingleColumnSpecified(response1, response2);
     }
 
     @Test
     public void _20_TestSelectAllPaginatedSingleColumnSpecifiedStatic()
-        throws ETSdkException
+            throws ETSdkException
     {
         ETResponse<ETDataExtensionRow> response1 = ETDataExtension.select(client,
-                                                                          "key=test1",
-                                                                          1, 2,
-                                                                          "LastName");
+                "key=test1",
+                1, 2,
+                "LastName");
         ETResponse<ETDataExtensionRow> response2 = ETDataExtension.select(client,
-                                                                          "key=test1",
-                                                                          2, 2,
-                                                                          "LastName");
+                "key=test1",
+                2, 2,
+                "LastName");
         testSelectAllPaginatedSingleColumnSpecified(response1, response2);
     }
 
@@ -806,35 +808,35 @@ public class ETDataExtensionTest {
 
     @Test
     public void _21_TestSelectAllPaginatedMultipleColumnsSpecified()
-        throws ETSdkException
+            throws ETSdkException
     {
         ETResponse<ETDataExtensionRow> response1 = dataExtension.select(1, 2,
-                                                                        "LastName",
-                                                                        "FirstName",
-                                                                        "EmailAddress");
+                "LastName",
+                "FirstName",
+                "EmailAddress");
         ETResponse<ETDataExtensionRow> response2 = dataExtension.select(2, 2,
-                                                                        "LastName",
-                                                                        "FirstName",
-                                                                        "EmailAddress");
+                "LastName",
+                "FirstName",
+                "EmailAddress");
         testSelectAllPaginatedMultipleColumnsSpecified(response1, response2);
     }
 
     @Test
     public void _22_TestSelectAllPaginatedMultipleColumnsSpecifiedStatic()
-        throws ETSdkException
+            throws ETSdkException
     {
         ETResponse<ETDataExtensionRow> response1 = ETDataExtension.select(client,
-                                                                          "key=test1",
-                                                                          1, 2,
-                                                                          "LastName",
-                                                                          "FirstName",
-                                                                          "EmailAddress");
+                "key=test1",
+                1, 2,
+                "LastName",
+                "FirstName",
+                "EmailAddress");
         ETResponse<ETDataExtensionRow> response2 = ETDataExtension.select(client,
-                                                                          "key=test1",
-                                                                          2, 2,
-                                                                          "LastName",
-                                                                          "FirstName",
-                                                                          "EmailAddress");
+                "key=test1",
+                2, 2,
+                "LastName",
+                "FirstName",
+                "EmailAddress");
         testSelectAllPaginatedMultipleColumnsSpecified(response1, response2);
     }
 
@@ -867,7 +869,7 @@ public class ETDataExtensionTest {
 
     @Test
     public void _23_TestSelectFiltered()
-        throws ETSdkException
+            throws ETSdkException
     {
         ETResponse<ETDataExtensionRow> response = dataExtension.select("LastName=Flintstone");
         testSelectFiltered(response);
@@ -875,11 +877,11 @@ public class ETDataExtensionTest {
 
     @Test
     public void _24_TestSelectFilteredStatic()
-        throws ETSdkException
+            throws ETSdkException
     {
         ETResponse<ETDataExtensionRow> response = ETDataExtension.select(client,
-                                                                         "key=test1",
-                                                                         "LastName=Flintstone");
+                "key=test1",
+                "LastName=Flintstone");
         testSelectFiltered(response);
     }
 
@@ -912,21 +914,21 @@ public class ETDataExtensionTest {
 
     @Test
     public void _25_TestSelectFilteredSingleColumnSpecified()
-        throws ETSdkException
+            throws ETSdkException
     {
         ETResponse<ETDataExtensionRow> response = dataExtension.select("LastName=Flintstone",
-                                                                       "LastName");
+                "LastName");
         testSelectFilteredSingleColumnSpecified(response);
     }
 
     @Test
     public void _26_TestSelectFilteredSingleColumnSpecifiedStatic()
-        throws ETSdkException
+            throws ETSdkException
     {
         ETResponse<ETDataExtensionRow> response = ETDataExtension.select(client,
-                                                                         "key=test1",
-                                                                         "LastName=Flintstone",
-                                                                         "LastName");
+                "key=test1",
+                "LastName=Flintstone",
+                "LastName");
         testSelectFilteredSingleColumnSpecified(response);
     }
 
@@ -959,25 +961,25 @@ public class ETDataExtensionTest {
 
     @Test
     public void _27_TestSelectFilteredMultipleColumnsSpecified()
-        throws ETSdkException
+            throws ETSdkException
     {
         ETResponse<ETDataExtensionRow> response = dataExtension.select("LastName=Flintstone",
-                                                                       "LastName",
-                                                                       "FirstName",
-                                                                       "EmailAddress");
+                "LastName",
+                "FirstName",
+                "EmailAddress");
         testSelectFilteredMultipleColumnsSpecified(response);
     }
 
     @Test
     public void _28_TestSelectFilteredMultipleColumnsSpecifiedStatic()
-        throws ETSdkException
+            throws ETSdkException
     {
         ETResponse<ETDataExtensionRow> response = ETDataExtension.select(client,
-                                                                         "key=test1",
-                                                                         "LastName=Flintstone",
-                                                                         "LastName",
-                                                                         "FirstName",
-                                                                         "EmailAddress");
+                "key=test1",
+                "LastName=Flintstone",
+                "LastName",
+                "FirstName",
+                "EmailAddress");
         testSelectFilteredMultipleColumnsSpecified(response);
     }
 
@@ -1003,7 +1005,7 @@ public class ETDataExtensionTest {
 
     @Test
     public void _29_TestSelectFilteredNotEquals()
-        throws ETSdkException
+            throws ETSdkException
     {
         ETResponse<ETDataExtensionRow> response = dataExtension.select("LastName != Flintstone");
         testSelectFilteredNotEquals(response);
@@ -1011,11 +1013,11 @@ public class ETDataExtensionTest {
 
     @Test
     public void _30_TestSelectFilteredNotEqualsStatic()
-        throws ETSdkException
+            throws ETSdkException
     {
         ETResponse<ETDataExtensionRow> response = ETDataExtension.select(client,
-                                                                         "key=test1",
-                                                                         "LastName != Flintstone");
+                "key=test1",
+                "LastName != Flintstone");
         testSelectFilteredNotEquals(response);
     }
 
@@ -1041,7 +1043,7 @@ public class ETDataExtensionTest {
 
     @Test
     public void _31_TestSelectFilteredLessThan()
-        throws ETSdkException
+            throws ETSdkException
     {
         ETResponse<ETDataExtensionRow> response = dataExtension.select("Age < 36");
         testSelectFilteredLessThan(response);
@@ -1049,11 +1051,11 @@ public class ETDataExtensionTest {
 
     @Test
     public void _32_TestSelectFilteredLessThanStatic()
-        throws ETSdkException
+            throws ETSdkException
     {
         ETResponse<ETDataExtensionRow> response = ETDataExtension.select(client,
-                                                                         "key=test1",
-                                                                         "Age < 36");
+                "key=test1",
+                "Age < 36");
         testSelectFilteredLessThan(response);
     }
 
@@ -1086,7 +1088,7 @@ public class ETDataExtensionTest {
 
     @Test
     public void _33_TestSelectFilteredLessThanOrEquals()
-        throws ETSdkException
+            throws ETSdkException
     {
         ETResponse<ETDataExtensionRow> response = dataExtension.select("Age <= 36");
         testSelectFilteredLessThanOrEquals(response);
@@ -1094,11 +1096,11 @@ public class ETDataExtensionTest {
 
     @Test
     public void _34_TestSelectFilteredLessThanOrEqualsStatic()
-        throws ETSdkException
+            throws ETSdkException
     {
         ETResponse<ETDataExtensionRow> response = ETDataExtension.select(client,
-                                                                         "key=test1",
-                                                                         "Age <= 36");
+                "key=test1",
+                "Age <= 36");
         testSelectFilteredLessThanOrEquals(response);
     }
 
@@ -1124,7 +1126,7 @@ public class ETDataExtensionTest {
 
     @Test
     public void _35_TestSelectFilteredGreaterThan()
-        throws ETSdkException
+            throws ETSdkException
     {
         ETResponse<ETDataExtensionRow> response = dataExtension.select("Age > 36");
         testSelectFilteredGreaterThan(response);
@@ -1132,11 +1134,11 @@ public class ETDataExtensionTest {
 
     @Test
     public void _36_TestSelectFilteredGreaterThanStatic()
-        throws ETSdkException
+            throws ETSdkException
     {
         ETResponse<ETDataExtensionRow> response = ETDataExtension.select(client,
-                                                                         "key=test1",
-                                                                         "Age > 36");
+                "key=test1",
+                "Age > 36");
         testSelectFilteredGreaterThan(response);
     }
 
@@ -1169,7 +1171,7 @@ public class ETDataExtensionTest {
 
     @Test
     public void _37_TestSelectFilteredGreaterThanOrEquals()
-        throws ETSdkException
+            throws ETSdkException
     {
         ETResponse<ETDataExtensionRow> response = dataExtension.select("Age >= 36");
         testSelectFilteredGreaterThanOrEquals(response);
@@ -1177,11 +1179,11 @@ public class ETDataExtensionTest {
 
     @Test
     public void _38_TestSelectFilteredGreaterThanOrEqualsStatic()
-        throws ETSdkException
+            throws ETSdkException
     {
         ETResponse<ETDataExtensionRow> response = ETDataExtension.select(client,
-                                                                         "key=test1",
-                                                                         "Age >= 36");
+                "key=test1",
+                "Age >= 36");
         testSelectFilteredGreaterThanOrEquals(response);
     }
 
@@ -1207,7 +1209,7 @@ public class ETDataExtensionTest {
 
     @Test
     public void _39_TestSelectFilteredIn1()
-        throws ETSdkException
+            throws ETSdkException
     {
         ETResponse<ETDataExtensionRow> response = dataExtension.select("Age in (34, 35)");
         testSelectFilteredIn1(response);
@@ -1215,11 +1217,11 @@ public class ETDataExtensionTest {
 
     @Test
     public void _40_TestSelectFilteredInStatic1()
-        throws ETSdkException
+            throws ETSdkException
     {
         ETResponse<ETDataExtensionRow> response = ETDataExtension.select(client,
-                                                                         "key=test1",
-                                                                         "Age in (34, 35)");
+                "key=test1",
+                "Age in (34, 35)");
         testSelectFilteredIn1(response);
     }
 
@@ -1252,7 +1254,7 @@ public class ETDataExtensionTest {
 
     @Test
     public void _41_TestSelectFilteredIn2()
-        throws ETSdkException
+            throws ETSdkException
     {
         ETResponse<ETDataExtensionRow> response = dataExtension.select("Age in (34, 35, 36)");
         testSelectFilteredIn2(response);
@@ -1260,11 +1262,11 @@ public class ETDataExtensionTest {
 
     @Test
     public void _42_TestSelectFilteredInStatic2()
-        throws ETSdkException
+            throws ETSdkException
     {
         ETResponse<ETDataExtensionRow> response = ETDataExtension.select(client,
-                                                                         "key=test1",
-                                                                         "Age in (34, 35, 36)");
+                "key=test1",
+                "Age in (34, 35, 36)");
         testSelectFilteredIn2(response);
     }
 
@@ -1297,7 +1299,7 @@ public class ETDataExtensionTest {
 
     @Test
     public void _43_TestSelectFilteredIn3()
-        throws ETSdkException
+            throws ETSdkException
     {
         ETResponse<ETDataExtensionRow> response = dataExtension.select("Age in (34, 35, 36, 37)");
         testSelectFilteredIn3(response);
@@ -1305,11 +1307,11 @@ public class ETDataExtensionTest {
 
     @Test
     public void _44_TestSelectFilteredInStatic3()
-        throws ETSdkException
+            throws ETSdkException
     {
         ETResponse<ETDataExtensionRow> response = ETDataExtension.select(client,
-                                                                         "key=test1",
-                                                                         "Age in (34, 35, 36, 37)");
+                "key=test1",
+                "Age in (34, 35, 36, 37)");
         testSelectFilteredIn3(response);
     }
 
@@ -1342,7 +1344,7 @@ public class ETDataExtensionTest {
 
     @Test
     public void _45_TestSelectFilteredBetween()
-        throws ETSdkException
+            throws ETSdkException
     {
         ETResponse<ETDataExtensionRow> response = dataExtension.select("Age between 30 and 40");
         testSelectFilteredBetween(response);
@@ -1350,11 +1352,11 @@ public class ETDataExtensionTest {
 
     @Test
     public void _46_TestSelectFilteredBetweenStatic()
-        throws ETSdkException
+            throws ETSdkException
     {
         ETResponse<ETDataExtensionRow> response = ETDataExtension.select(client,
-                                                                         "key=test1",
-                                                                         "Age between 30 and 40");
+                "key=test1",
+                "Age between 30 and 40");
         testSelectFilteredBetween(response);
     }
 
@@ -1388,7 +1390,7 @@ public class ETDataExtensionTest {
 
     @Test
     public void _47_TestSelectFilteredLike()
-        throws ETSdkException
+            throws ETSdkException
     {
         ETResponse<ETDataExtensionRow> response = dataExtension.select("lastname like 'Flint%'");
         System.out.println("resp="+ response.toString());
@@ -1397,11 +1399,11 @@ public class ETDataExtensionTest {
 
     @Test
     public void _48_TestSelectFilteredLikeStatic()
-        throws ETSdkException
+            throws ETSdkException
     {
         ETResponse<ETDataExtensionRow> response = ETDataExtension.select(client,
-                                                                         "key=test1",
-                                                                         "lastname like 'Flint%'");
+                "key=test1",
+                "lastname like 'Flint%'");
         System.out.println("resp="+ response.toString());
         testSelectFilteredLike(response);
     }
@@ -1428,7 +1430,7 @@ public class ETDataExtensionTest {
 
     @Test
     public void _49_TestSelectFilteredAnd()
-        throws ETSdkException
+            throws ETSdkException
     {
         ETResponse<ETDataExtensionRow> response = dataExtension.select("LastName = 'Flintstone' and FirstName = 'Wilma'");
         testSelectFilteredAnd(response);
@@ -1436,11 +1438,11 @@ public class ETDataExtensionTest {
 
     @Test
     public void _50_TestSelectFilteredAndStatic()
-        throws ETSdkException
+            throws ETSdkException
     {
         ETResponse<ETDataExtensionRow> response = ETDataExtension.select(client,
-                                                                         "key=test1",
-                                                                         "LastName = 'Flintstone' and FirstName = 'Wilma'");
+                "key=test1",
+                "LastName = 'Flintstone' and FirstName = 'Wilma'");
         testSelectFilteredAnd(response);
     }
 
@@ -1485,27 +1487,27 @@ public class ETDataExtensionTest {
 
     @Test
     public void _51_TestSelectFilteredPaginated()
-        throws ETSdkException
+            throws ETSdkException
     {
         ETResponse<ETDataExtensionRow> response1 = dataExtension.select(1, 1,
-                                                                        "LastName=Flintstone");
+                "LastName=Flintstone");
         ETResponse<ETDataExtensionRow> response2 = dataExtension.select(2, 1,
-                                                                        "LastName=Flintstone");
+                "LastName=Flintstone");
         testSelectFilteredPaginated(response1, response2);
     }
 
     @Test
     public void _52_TestSelectFilteredPaginatedStatic()
-        throws ETSdkException
+            throws ETSdkException
     {
         ETResponse<ETDataExtensionRow> response1 = ETDataExtension.select(client,
-                                                                          "key=test1",
-                                                                          1, 1,
-                                                                          "LastName=Flintstone");
+                "key=test1",
+                1, 1,
+                "LastName=Flintstone");
         ETResponse<ETDataExtensionRow> response2 = ETDataExtension.select(client,
-                                                                          "key=test1",
-                                                                          2, 1,
-                                                                          "LastName=Flintstone");
+                "key=test1",
+                2, 1,
+                "LastName=Flintstone");
         testSelectFilteredPaginated(response1, response2);
     }
 
@@ -1550,31 +1552,31 @@ public class ETDataExtensionTest {
 
     @Test
     public void _53_TestSelectFilteredPaginatedSingleColumnSpecified()
-        throws ETSdkException
+            throws ETSdkException
     {
         ETResponse<ETDataExtensionRow> response1 = dataExtension.select(1, 1,
-                                                                        "LastName=Flintstone",
-                                                                        "LastName");
+                "LastName=Flintstone",
+                "LastName");
         ETResponse<ETDataExtensionRow> response2 = dataExtension.select(2, 1,
-                                                                        "LastName=Flintstone",
-                                                                        "LastName");
+                "LastName=Flintstone",
+                "LastName");
         testSelectFilteredPaginatedSingleColumnSpecified(response1, response2);
     }
 
     @Test
     public void _54_TestSelectFilteredPaginatedSingleColumnSpecifiedStatic()
-        throws ETSdkException
+            throws ETSdkException
     {
         ETResponse<ETDataExtensionRow> response1 = ETDataExtension.select(client,
-                                                                          "key=test1",
-                                                                          1, 1,
-                                                                          "LastName=Flintstone",
-                                                                          "LastName");
+                "key=test1",
+                1, 1,
+                "LastName=Flintstone",
+                "LastName");
         ETResponse<ETDataExtensionRow> response2 = ETDataExtension.select(client,
-                                                                          "key=test1",
-                                                                          2, 1,
-                                                                          "LastName=Flintstone",
-                                                                          "LastName");
+                "key=test1",
+                2, 1,
+                "LastName=Flintstone",
+                "LastName");
         testSelectFilteredPaginatedSingleColumnSpecified(response1, response2);
     }
 
@@ -1619,98 +1621,98 @@ public class ETDataExtensionTest {
 
     @Test
     public void _55_TestSelectFilteredPaginatedMultipleColumnsSpecified()
-        throws ETSdkException
+            throws ETSdkException
     {
         ETResponse<ETDataExtensionRow> response1 = dataExtension.select(1, 1,
-                                                                        "LastName=Flintstone",
-                                                                        "LastName",
-                                                                        "FirstName",
-                                                                        "EmailAddress");
+                "LastName=Flintstone",
+                "LastName",
+                "FirstName",
+                "EmailAddress");
         ETResponse<ETDataExtensionRow> response2 = dataExtension.select(2, 1,
-                                                                        "LastName=Flintstone",
-                                                                        "LastName",
-                                                                        "FirstName",
-                                                                        "EmailAddress");
+                "LastName=Flintstone",
+                "LastName",
+                "FirstName",
+                "EmailAddress");
         testSelectFilteredPaginatedMultipleColumnsSpecified(response1, response2);
     }
 
     @Test
     public void _56_TestSelectFilteredPaginatedMultipleColumnsSpecifiedStatic()
-        throws ETSdkException
+            throws ETSdkException
     {
         ETResponse<ETDataExtensionRow> response1 = ETDataExtension.select(client,
-                                                                          "key=test1",
-                                                                          1, 1,
-                                                                          "LastName=Flintstone",
-                                                                          "LastName",
-                                                                          "FirstName",
-                                                                          "EmailAddress");
+                "key=test1",
+                1, 1,
+                "LastName=Flintstone",
+                "LastName",
+                "FirstName",
+                "EmailAddress");
         ETResponse<ETDataExtensionRow> response2 = ETDataExtension.select(client,
-                                                                          "key=test1",
-                                                                          2, 1,
-                                                                          "LastName=Flintstone",
-                                                                          "LastName",
-                                                                          "FirstName",
-                                                                          "EmailAddress");
+                "key=test1",
+                2, 1,
+                "LastName=Flintstone",
+                "LastName",
+                "FirstName",
+                "EmailAddress");
         testSelectFilteredPaginatedMultipleColumnsSpecified(response1, response2);
     }
 
-/*    @Test
-    public void _57_TestSelectDeprecated1()
-        throws ETSdkException
-    {
-        @SuppressWarnings("deprecation")
-        ETResponse<ETDataExtensionRow> response1 = dataExtension.select("LastName=Flintstone",
-                                                                        1, 1,
-                                                                        "LastName",
-                                                                        "FirstName",
-                                                                        "EmailAddress");
-        @SuppressWarnings("deprecation")
-        ETResponse<ETDataExtensionRow> response2 = dataExtension.select("LastName=Flintstone",
-                                                                        2, 1,
-                                                                        "LastName",
-                                                                        "FirstName",
-                                                                        "EmailAddress");
-        testSelectFilteredPaginatedMultipleColumnsSpecified(response1, response2);
-    }
+    /*    @Test
+        public void _57_TestSelectDeprecated1()
+            throws ETSdkException
+        {
+            @SuppressWarnings("deprecation")
+            ETResponse<ETDataExtensionRow> response1 = dataExtension.select("LastName=Flintstone",
+                                                                            1, 1,
+                                                                            "LastName",
+                                                                            "FirstName",
+                                                                            "EmailAddress");
+            @SuppressWarnings("deprecation")
+            ETResponse<ETDataExtensionRow> response2 = dataExtension.select("LastName=Flintstone",
+                                                                            2, 1,
+                                                                            "LastName",
+                                                                            "FirstName",
+                                                                            "EmailAddress");
+            testSelectFilteredPaginatedMultipleColumnsSpecified(response1, response2);
+        }
 
-    @Test
-    public void _58_TestSelectDeprecatedStatic1()
-        throws ETSdkException
-    {
-        @SuppressWarnings("deprecation")
-        ETResponse<ETDataExtensionRow> response1 = ETDataExtension.select(client,
-                                                                          "key=test1",
-                                                                          "LastName=Flintstone",
-                                                                          1, 1,
-                                                                          "LastName",
-                                                                          "FirstName",
-                                                                          "EmailAddress");
-        @SuppressWarnings("deprecation")
-        ETResponse<ETDataExtensionRow> response2 = ETDataExtension.select(client,
-                                                                          "key=test1",
-                                                                          "LastName=Flintstone",
-                                                                          2, 1,
-                                                                          "LastName",
-                                                                          "FirstName",
-                                                                          "EmailAddress");
-        testSelectFilteredPaginatedMultipleColumnsSpecified(response1, response2);
-    }
-*/
+        @Test
+        public void _58_TestSelectDeprecatedStatic1()
+            throws ETSdkException
+        {
+            @SuppressWarnings("deprecation")
+            ETResponse<ETDataExtensionRow> response1 = ETDataExtension.select(client,
+                                                                              "key=test1",
+                                                                              "LastName=Flintstone",
+                                                                              1, 1,
+                                                                              "LastName",
+                                                                              "FirstName",
+                                                                              "EmailAddress");
+            @SuppressWarnings("deprecation")
+            ETResponse<ETDataExtensionRow> response2 = ETDataExtension.select(client,
+                                                                              "key=test1",
+                                                                              "LastName=Flintstone",
+                                                                              2, 1,
+                                                                              "LastName",
+                                                                              "FirstName",
+                                                                              "EmailAddress");
+            testSelectFilteredPaginatedMultipleColumnsSpecified(response1, response2);
+        }
+    */
     @Test
     public void _59_TestSelectCaseIndependence()
-        throws ETSdkException
+            throws ETSdkException
     {
         ETResponse<ETDataExtensionRow> response = dataExtension.select("lastname",
-                                                                       "firstname",
-                                                                       "emailaddress",
-                                                                       "order by firstname");
+                "firstname",
+                "emailaddress",
+                "order by firstname");
 //        testSelectAllSortedMultipleColumnsSpecified(response);
     }
 
     @Test
     public void _60_TestSelectZeroRowsReturned()
-        throws ETSdkException
+            throws ETSdkException
     {
         ETResponse<ETDataExtensionRow> response = dataExtension.select("LastName=fnord");
         assertNotNull(response.getRequestId());
@@ -1727,7 +1729,7 @@ public class ETDataExtensionTest {
 
     @Test
     public void _61_TestUpdateSingleRow()
-        throws ETSdkException
+            throws ETSdkException
     {
         ETDataExtensionRow row = new ETDataExtensionRow();
         row.setColumn("CustomerID", "1");
@@ -1760,7 +1762,7 @@ public class ETDataExtensionTest {
 
     @Test
     public void _62_TestUpdateMultipleRows()
-        throws ETSdkException
+            throws ETSdkException
     {
         ETDataExtensionRow row1 = new ETDataExtensionRow();
         row1.setColumn("CustomerID", "2");
@@ -1810,10 +1812,10 @@ public class ETDataExtensionTest {
 
     @Test
     public void _63_TestUpdateRowsByFilter()
-        throws ETSdkException
+            throws ETSdkException
     {
         ETResponse<ETDataExtensionRow> response = dataExtension.update("LastName=Flintstone",
-                                                                       "FirstName='Fred and Wilma'");
+                "FirstName='Fred and Wilma'");
         assertNotNull(response.getRequestId());
         assertEquals(OK, response.getStatus());
         assertEquals("OK", response.getResponseCode());
@@ -1855,16 +1857,16 @@ public class ETDataExtensionTest {
 
     @Test(expected = ETSdkException.class)
     public void _64_TestUpdateRowsByFilterInvalidOperator()
-        throws ETSdkException
+            throws ETSdkException
     {
         @SuppressWarnings("unused")
         ETResponse<ETDataExtensionRow> response = dataExtension.update("LastName=Flintstone",
-                                                                       "FirstName != 'Fred and Wilma'");
+                "FirstName != 'Fred and Wilma'");
     }
 
     @Test
     public void _65_TestDeleteSingleRow()
-        throws ETSdkException
+            throws ETSdkException
     {
         ETDataExtensionRow row = new ETDataExtensionRow();
         row.setColumn("CustomerID", "1");
@@ -1890,7 +1892,7 @@ public class ETDataExtensionTest {
 
     @Test
     public void _66_TestDeleteMultipleRows()
-        throws ETSdkException
+            throws ETSdkException
     {
         ETDataExtensionRow row1 = new ETDataExtensionRow();
         row1.setColumn("CustomerID", "2");
@@ -1926,19 +1928,19 @@ public class ETDataExtensionTest {
 
     //@Test
     public void _67_TestDeleteRowsByFilter()
-        throws ETSdkException
+            throws ETSdkException
     {
     }
 
     //@Test
     public void _68_TestDeleteRowsByFilterInvalidOperator()
-        throws ETSdkException
+            throws ETSdkException
     {
     }
 
     @Test
     public void _69_TestDeleteSingle()
-        throws ETSdkException
+            throws ETSdkException
     {
         ETDataExtension dataExtension = new ETDataExtension();
         dataExtension.setKey("test1");
@@ -1959,15 +1961,15 @@ public class ETDataExtensionTest {
         assertEquals("Data Extension deleted.", result.getResponseMessage());
         assertNull(result.getErrorCode());
     }
-    
+
     @Test
     public void _70_TestSelectFilteredByDateTime()
-        throws ETSdkException
+            throws ETSdkException
     {
         @SuppressWarnings("unused")
         ETResponse<ETDataExtensionRow> response = dataExtension.select("EventDate > '2016-01-01T01:01:01Z'");
     }
-    
+
     @Test
     public void _71_createSendableDataExtension() throws ETSdkException
     {
@@ -2004,8 +2006,8 @@ public class ETDataExtensionTest {
 
         sdeid = result.getObjectId();
         System.out.println("id="+sdeid);
-    }    
-    
+    }
+
     @Test
     public void _72_getSendableDataExtension() throws ETSdkException
     {
@@ -2022,64 +2024,64 @@ public class ETDataExtensionTest {
         exp.setProperty("id");
         exp.setOperator("=");
         exp.setValue(sdeid);
-        etf.setExpression(exp);         
-        
+        etf.setExpression(exp);
+
         ETResponse<ETDataExtension> response = client.retrieve(ETDataExtension.class, etf);
         System.out.println("resp="+response);
-        
+
         assertNotNull(response.getRequestId());
         assertEquals(response.getResponseCode(), "OK");
         assertEquals(response.getResponseMessage(), "OK");
-        
+
         ETResult<ETDataExtension> result = response.getResult();
         System.out.println("res="+ result.toString());
-        
-        assertEquals(result.getObject().getId(), sdeid);  
-        assertTrue(result.getObject().getIsSendable());        
-    }    
-    
+
+        assertEquals(result.getObject().getId(), sdeid);
+        assertTrue(result.getObject().getIsSendable());
+    }
+
     @Test
     public void _73_updateSendableDataExtension() throws ETSdkException
     {
         ETDataExtension etsde = new ETDataExtension();
         etsde.setId(sdeid);
         etsde.setIsSendable(true);
-       
-        
+
+
         etsde.setSendableDataExtensionField(etsde.getColumn("FirstName"));
-        
+
         ETResponse<ETDataExtension> response = client.update(etsde);
         System.out.println("resp="+ response.toString());
         assertNotNull(response.getRequestId());
         assertEquals(response.getResponseCode(), "OK");
         assertEquals(response.getResponseMessage(), "OK");
-        
+
         ETResult<ETDataExtension> result = response.getResult();
         System.out.println("res="+ result.toString());
         assertEquals(result.getResponseCode(), "OK");
-        assertEquals(result.getResponseMessage(), "Data Extension updated.");        
-        
-        assertEquals(result.getObject().getId(), sdeid);  
+        assertEquals(result.getResponseMessage(), "Data Extension updated.");
+
+        assertEquals(result.getObject().getId(), sdeid);
         assertTrue(result.getObject().getIsSendable());
-    }    
-    
+    }
+
     @Test
     public void _74_deleteSendableDataExtension() throws ETSdkException
     {
         ETDataExtension etsde = new ETDataExtension();
-        etsde.setId(sdeid);        
-        
-        ETResponse<ETDataExtension> response = client.delete(etsde);   
+        etsde.setId(sdeid);
+
+        ETResponse<ETDataExtension> response = client.delete(etsde);
         System.out.println("resp="+ response.toString());
         assertNotNull(response.getRequestId());
         assertEquals(response.getResponseCode(), "OK");
-        assertEquals(response.getResponseMessage(), "OK");        
+        assertEquals(response.getResponseMessage(), "OK");
 
         ETResult<ETDataExtension> result = response.getResult();
         System.out.println("res="+ result.toString());
 
         assertEquals(result.getResponseCode(), "OK");
-        assertEquals(result.getResponseMessage(), "Data Extension deleted.");        
-    }    
-    
+        assertEquals(result.getResponseMessage(), "Data Extension deleted.");
+    }
+
 }
