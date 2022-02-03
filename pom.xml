@@ -4,7 +4,7 @@
   <groupId>org.redventures</groupId>
   <artifactId>fuelsdk</artifactId>
   <version>1.6.0</version>
-  <name>Salesforce Marketing Cloud Java SDK (gmazza fork)</name>
+  <name>Salesforce Marketing Cloud Java SDK (redventures fork)</name>
   <description>Salesforce Marketing Cloud Java SDK</description>
   <url>https://github.com/RedVentures/FuelSDK-Java</url>
   <licenses>
